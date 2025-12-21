@@ -1,0 +1,25 @@
+class Solution:
+	def isCycle(self, V, edges):
+		#Code here
+		adj = [[] for _ in range(V)]
+        for u, v in edges:
+            adj[u].append(v)
+            adj[v].append(u)
+
+        visited = [False] * V
+
+        def dfs(u, parent):
+            visited[u] = True
+            for v in adj[u]:
+                if not visited[v]:
+                    if dfs(v, u):
+                        return True
+                elif v != parent:
+                    return True
+            return False
+
+        for i in range(V):
+            if not visited[i]:
+                if dfs(i, -1):
+                    return True
+        return False
