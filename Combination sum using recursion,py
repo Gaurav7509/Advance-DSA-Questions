@@ -1,0 +1,18 @@
+def combinationSum(candidates, target):
+    def new_comb(index, curr_target):
+        if curr_target == 0:
+             return [[]]
+        if index >= len(candidates) or curr_target < 0:
+            return []
+        sum1 = new_comb(index, curr_target - candidates[index])
+        result= [[candidates[index]] + i for i in sum1]
+        sum2 = new_comb(index + 1, curr_target)
+        return result + sum2
+
+    return new_comb(0, target)
+
+nums = [2, 3, 6, 7]
+goal = 7
+print(combinationSum(nums, goal))
+
+
