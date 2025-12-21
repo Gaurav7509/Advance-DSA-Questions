@@ -1,0 +1,25 @@
+class Solution:
+	def isCycle(self, V, edges):
+		#Code here
+        adj = [[] for _ in range(V)]
+        for u, v in edges:
+            adj[u].append(v)
+            adj[v].append(u)
+
+        visited = [False] * V
+
+        for start in range(V):
+            if not visited[start]:
+                queue = [(start, -1)]
+                visited[start] = True
+
+                while queue:
+                    node, parent = queue.pop(0)
+
+                    for i in adj[node]:
+                        if not visited[i]:
+                            visited[i] = True
+                            queue.append((i, node))
+                        elif i != parent:
+                            return True
+        return False
